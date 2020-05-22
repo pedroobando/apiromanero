@@ -1,0 +1,8 @@
+node_modules
+npm-debug.log
+src
+src/basurero
+Dockerfile
+.dockerignore
+README.dm
+.eslintrc.js

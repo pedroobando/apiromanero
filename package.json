@@ -1,0 +1,40 @@
+{
+  "name": "apiromanero",
+  "version": "0.1.0",
+  "main": "index.js",
+  "license": "MIT",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "nodemon src/index.js --exec babel-node",
+    "build": "babel src --out-dir dist",
+    "start": "node dist/index.js",
+    "update-dep": "yarn upgrade-interactive --latest"
+  },
+  "keywords": [
+    "express",
+    "babel",
+    "nodemon",
+    "mongodb",
+    "apirest"
+  ],
+  "author": "Pedro Obando",
+  "description": "",
+  "dependencies": {
+    "@babel/polyfill": "^7.8.7",
+    "cors": "^2.8.5",
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1",
+    "jsonwebtoken": "^8.5.1",
+    "mongodb": "^3.5.7",
+    "morgan": "^1.10.0"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.8.4",
+    "@babel/core": "^7.9.6",
+    "@babel/node": "^7.8.7",
+    "@babel/preset-env": "^7.9.6",
+    "babel-preset-minify": "^0.5.1",
+    "eslint": "^7.0.0",
+    "nodemon": "^2.0.4"
+  }
+}
