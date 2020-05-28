@@ -8,7 +8,7 @@ export async function connect() {
   // const authMechanism = 'DEFAULT';
   const url = `mongodb://${userName}:${userPassword}@${internalIP}/`; // process.env.MONGO_CONNECT;
   // const url = `mongodb://${internalIP}:27018/`; // process.env.MONGO_CONNECT;
-  const dbname = 'shared';
+  const dbname = 'romanero';
   const client = MongoClient(url, { useUnifiedTopology: true, useNewUrlParser: true });
   try {
     // open connection

@@ -149,10 +149,12 @@ function dataEntity(valueEnt) {
     login: valueEnt.login !== undefined ? valueEnt.login: null,
     pass: valueEnt.pass !== undefined ? valueEnt.pass: null,
     email: valueEnt.email !== undefined ? valueEnt.email: null,
-    website: valueEnt.website !== undefined ? valueEnt.website: null
+    website: valueEnt.website !== undefined ? valueEnt.website: null,
+    dni: valueEnt.dni !== undefined ? valueEnt.dni: 0,
+    name: valueEnt.name !== undefined ? valueEnt.name: null,
+    lastlogin: valueEnt.lastlogin != undefined ? valueEnt.lastlogin: Date.now()    
   }
 }
-
 
 function retdataEntity(valueEnt, peopleEnt) {
   // const people = await db.collection(collectionPeople).findOne({_id: ObjectID(result.idpeople)})
@@ -162,11 +164,11 @@ function retdataEntity(valueEnt, peopleEnt) {
     login: valueEnt.login !== undefined ? valueEnt.login: null,
     pass: valueEnt.pass !== undefined ? valueEnt.pass: null,
     email: valueEnt.email !== undefined ? valueEnt.email: null,
-    dni: peopleEnt.dni,
-    name: peopleEnt.name
+    dni: peopleEnt.dni !== undefined ? valueEnt.dni: 0,
+    name: peopleEnt.name !== undefined ? valueEnt.name: null,
+    lastlogin: peopleEnt.lastlogin != undefined ? valueEnt.lastlogin: Date.now()
   }
 }
-
 
 function validateError(errParam) {
   let errMessage = {};
