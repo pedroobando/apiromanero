@@ -82,10 +82,10 @@ export async function createEntity(req) {
     const db = await connect();
     const result = await db.collection(collectionName).insertOne(dataObject);
     assert.equal(1, result.insertedCount);
-    const _people = await db.collection(collectionPeople).findOne({_id: ObjectID(dataObject._idpeople)});
-    _people.usuario = true;
-    console.log(_people);
-    await db.collection(collectionPeople).updateOne({_id: ObjectID(_people._id)},{$set:_people});
+    // const _user = await db.collection(collectionPeople).findOne({_id: ObjectID(dataObject._idpeople)});
+    // _user.activo = true;
+    // console.log(_user);
+    // await db.collection(collectionPeople).updateOne({_id: ObjectID(_people._id)},{$set:_people});
     retAccion = {status: 201, insertedCount: result.insertedCount, data: result.ops[0]}
   } catch (error) {
     retAccion = {status: 400, insertedCount: 0, data: validateError(error)}
@@ -145,7 +145,7 @@ export async function createIndex() {
 
 function dataEntity(valueEnt) {
   return {
-    _idpeople: valueEnt._idpeople !== undefined ? valueEnt._idpeople: null,
+    // _id: valueEnt._id !== undefined ? valueEnt._idpeople: null,
     login: valueEnt.login !== undefined ? valueEnt.login: null,
     pass: valueEnt.pass !== undefined ? valueEnt.pass: null,
     email: valueEnt.email !== undefined ? valueEnt.email: null,

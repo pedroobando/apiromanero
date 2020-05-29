@@ -55,8 +55,9 @@ export async function createEntity(req) {
   let retAccion = {status:200, data:[]}
   try {    
     let dataObject = dataEntity(req.body);
-    dataObject.enabled = true;
+    // dataObject.activo = true;
     const db = await connect();
+    console.log(dataObject);
     const result = await db.collection(collectionName).insertOne(dataObject);
     assert.equal(1, result.insertedCount);
     retAccion = {status: 201, insertedCount: result.insertedCount, data: result.ops[0]}
@@ -117,12 +118,12 @@ function dataEntity(valueEnt) {
     dni: valueEnt.dni !== undefined ? valueEnt.dni: null,
     nombre: valueEnt.nombre !== undefined ? valueEnt.nombre: null,
     activo: valueEnt.activo !== undefined ? valueEnt.activo: true,
-    timestamps: valueEnt.timestamps !== undefined ? valueEnt.undefined: Date.now(),
-    ubicacion: {
-      telefono: valueEnt.ubicacion.telefono !== undefined ? valueEnt.ubicacion.telefono: [],
-      direccion: valueEnt.ubicacion.direccion !== undefined ? valueEnt.ubicacion.direccion: '',
-      email: valueEnt.ubicacion.email !== undefined ? valueEnt.ubicacion.email: '',
-    }
+    // timestamps: valueEnt.timestamps !== undefined ? valueEnt.timestamps: Date.now(),
+    // ubicacion: {
+    //   telefono: valueEnt.ubicacion.telefono !== undefined ? valueEnt.ubicacion.telefono: [],
+    //   direccion: valueEnt.ubicacion.direccion !== undefined ? valueEnt.ubicacion.direccion: '',
+    //   email: valueEnt.ubicacion.email !== undefined ? valueEnt.ubicacion.email: '',
+    // }
   }
 }
 
@@ -133,7 +134,7 @@ function retdataEntity(valueEnt) {
     dni: valueEnt.dni !== undefined ? valueEnt.dni: null,
     nombre: valueEnt.nombre !== undefined ? valueEnt.nombre: null,
     activo: valueEnt.activo !== undefined ? valueEnt.activo: true,
-    timestamps: valueEnt.timestamps !== undefined ? valueEnt.undefined: Date.now(),
+    timestamps: valueEnt.timestamps !== undefined ? valueEnt.timestamps: Date.now(),
     ubicacion:  valueEnt.ubicacion !== undefined ? {
       telefono: valueEnt.ubicacion.telefono !== undefined ? valueEnt.ubicacion.telefono: [],
       direccion: valueEnt.ubicacion.direccion !== undefined ? valueEnt.ubicacion.direccion: '',
