@@ -5,6 +5,7 @@ import { ObjectID } from 'mongodb';
 import assert from 'assert';
 
 const collectionName = 'producto';
+const fieldkeyName = {'codigo': 1};
 
 // sequelize crud
 export async function getEntityAll(req) {
@@ -18,6 +19,7 @@ export async function getEntityAll(req) {
   const nskip = (page-1) * pageSize;
   try {
     const norderType = orderType == 'ASC' ? 1: -1;
+    const xfEntity = (xItem) => {return retdataEntity(xItem)};
     const db = await connect();
     const countAll = await db.collection(collectionName).countDocuments(onlyEnabled ? { 'enabled': true }: {})
     const result = await db.collection(collectionName).find(onlyEnabled ? { 'enabled': true }: {})
@@ -25,10 +27,7 @@ export async function getEntityAll(req) {
       .skip(nskip)
       .sort({[orderBy]: norderType})
       .toArray();
-    let resultData = result.map((item) => {
-        return retdataEntity(item);
-      });
-    retAccion.data = {record: resultData, countAll}
+    retAccion.data = {record: result.map(xfEntity), countAll}
   } catch (error) {
     retAccion.status = 400;
     console.log(error.stack);
@@ -103,7 +102,7 @@ export async function createIndex() {
     const db = await connect();
     let result = await db.collection(collectionName).dropIndexes();
     if (result) {
-      result = await db.collection(collectionName).ensureIndex({'nombre':1},{'unique':true});
+      result = await db.collection(collectionName).ensureIndex(fieldkeyName ,{'unique':true});
       // await db.collection(collectionName).ensureIndex({'nombre':1});
     }    
     retAccion = {status: 200, indexCount: result, data: {result: 'Ok'}}

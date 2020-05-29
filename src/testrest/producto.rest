@@ -1,6 +1,6 @@
 @hostname = http://localhost
 @port = 3003
-@baseUrl = {{hostname}}:{{port}}/api/conductores
+@baseUrl = {{hostname}}:{{port}}/api/productos
 
 GET {{baseUrl}}/createindex HTTP/1.1
 
@@ -12,8 +12,8 @@ POST {{baseUrl}}/
 Content-Type: application/json
 
 {
-  "dni": 555444,
-  "nombre": "sdsdsdsd",
+  "codigo": 322321,
+  "nombre": "aceite",
   "activo": true,
   "ubicacion": {
     "direccion": "ssssdsdsdsd",
