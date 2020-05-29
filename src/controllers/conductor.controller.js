@@ -1,3 +1,5 @@
+import { _mdateObject } from '../middlewares/date';
+import { _merrorMessage } from '../middlewares/errorMessage';
 import { connect } from '../database/mongoCnn';
 import { ObjectID } from 'mongodb';
 import assert from 'assert';
@@ -46,7 +48,7 @@ export async function getEntityOne(req) {
       retAccion = {status:404, data:{msg: `id ${id} not found`}}
     }
   } catch (error) {
-    retAccion = {status:404, data:validateError(error)}
+    retAccion = {status:404, data:_merrorMessage(error)}
   }
   return retAccion;
 }
@@ -62,7 +64,7 @@ export async function createEntity(req) {
     assert.equal(1, result.insertedCount);
     retAccion = {status: 201, insertedCount: result.insertedCount, data: result.ops[0]}
   } catch (error) {
-    retAccion = {status: 400, insertedCount: 0, data: validateError(error)}
+    retAccion = {status: 400, insertedCount: 0, data: _merrorMessage(error)}
   }
   return retAccion;
 }
@@ -77,7 +79,7 @@ export async function updateEntity(req) {
     assert.equal(1, result.modifiedCount);
     retAccion = {status: 200, modifiedCount: result.modifiedCount}
   } catch (error) {
-    retAccion = {status: 400, modifiedCount: 0, data: validateError(error) };
+    retAccion = {status: 400, modifiedCount: 0, data: _merrorMessage(error) };
   }
   return retAccion;
 }
@@ -91,7 +93,7 @@ export async function removeEntity(req) {
     assert.equal(1, result.deletedCount);
     retAccion = {status: 200, deletedCount: result.deletedCount, data: {id, result}}
   } catch (error) {
-    retAccion = {status: 400, deletedCount: 0, data: validateError(error) };
+    retAccion = {status: 400, deletedCount: 0, data: _merrorMessage(error) };
   }
   return retAccion;
 }
@@ -107,60 +109,40 @@ export async function createIndex() {
     }    
     retAccion = {status: 200, indexCount: result, data: {result: 'Ok'}}
   } catch (error) {
-    retAccion = {status: 400, indexCount: 0, data: validateError(error) };
+    retAccion = {status: 400, indexCount: 0, data: _merrorMessage(error) };
   }
   return retAccion;
 }
 
 function dataEntity(valueEnt) {
-  // console.log(`${valueEnt.dni} 222`);
   return {
     dni: valueEnt.dni !== undefined ? valueEnt.dni: null,
     nombre: valueEnt.nombre !== undefined ? valueEnt.nombre: null,
     activo: valueEnt.activo !== undefined ? valueEnt.activo: true,
-    // timestamps: valueEnt.timestamps !== undefined ? valueEnt.timestamps: Date.now(),
-    // ubicacion: {
-    //   telefono: valueEnt.ubicacion.telefono !== undefined ? valueEnt.ubicacion.telefono: [],
-    //   direccion: valueEnt.ubicacion.direccion !== undefined ? valueEnt.ubicacion.direccion: '',
-    //   email: valueEnt.ubicacion.email !== undefined ? valueEnt.ubicacion.email: '',
-    // }
+    ubicacion: {
+      telefono: valueEnt.ubicacion.telefono !== undefined ? valueEnt.ubicacion.telefono: [],
+      direccion: valueEnt.ubicacion.direccion !== undefined ? valueEnt.ubicacion.direccion: '',
+      email: valueEnt.ubicacion.email !== undefined ? valueEnt.ubicacion.email: '',
+    },
+    timestamps: Date.now()
   }
 }
 
 function retdataEntity(valueEnt) {
-  // console.log('phone:', valueEnt.locations !== undefined);
   return {
     _id: valueEnt._id !== undefined ? valueEnt._id: null,
     dni: valueEnt.dni !== undefined ? valueEnt.dni: null,
     nombre: valueEnt.nombre !== undefined ? valueEnt.nombre: null,
     activo: valueEnt.activo !== undefined ? valueEnt.activo: true,
-    timestamps: valueEnt.timestamps !== undefined ? valueEnt.timestamps: Date.now(),
-    ubicacion:  valueEnt.ubicacion !== undefined ? {
+    ubicacion: valueEnt.ubicacion !== undefined ? {
       telefono: valueEnt.ubicacion.telefono !== undefined ? valueEnt.ubicacion.telefono: [],
       direccion: valueEnt.ubicacion.direccion !== undefined ? valueEnt.ubicacion.direccion: '',
       email: valueEnt.ubicacion.email !== undefined ? valueEnt.ubicacion.email: ''
     } : {
       telefono: [],
-      direccion:  '',
+      direccion: '',
       email: ''
-    }
+    },    
+    timestamps: _mdateObject(valueEnt.timestamps)
   }
-}
-
-function validateError(errParam) {
-  let errMessage = {};
-  let errValue = 'ss'; // errParam.errors[0].value == null ? '': errParam.errors[0].value;
-  // console.error(errParam);
-  if (errParam.name == 'SequelizeValidationError') {
-    errMessage = {msg: `El ${errParam.errors[0].path} ${errValue} no es valido, por favor verifique.`}
-  }
-  // if (errParam.name == 'SequelizeUniqueConstraintError') {
-  //   errMessage = {msg: `El ${errParam.fields} ${errValue} ya esta registrado, por favor ingrese otro.`}
-  // }
-  if (errParam.name == 'SequelizeUniqueConstraintError') {
-    errMessage = {msg: `El ${errParam.errors[0].path} ${errValue} ya esta registrado, por favor ingrese otro.`}
-  }
-  // console.log(errParam.name);
-  console.log(errMessage.msg);
-  return errMessage;  
 }

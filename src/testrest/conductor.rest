@@ -1,0 +1,42 @@
+
+@hostname = http://localhost
+@port = 3003
+@baseUrl = {{hostname}}:{{port}}/api/conductores
+
+GET {{baseUrl}}/createindex HTTP/1.1
+
+###
+GET {{baseUrl}}/
+
+###
+POST {{baseUrl}}/
+Content-Type: application/json
+
+{
+  "dni": 555444,
+  "nombre": "sdsdsdsd",
+  "activo": true,
+  "ubicacion": {
+    "direccion": "ssssdsdsdsd",
+    "email":"epepe@gmail.com",
+    "telefono": [{"casa": "223322"},{"cel":"+052-3287382"}]
+  }
+}
+
+###
+DELETE {{baseUrl}}/5ed10c90a01e7f54a604107f
+
+###
+PUT {{baseUrl}}/5ed10c90a01e7f54a604107f
+Content-Type: application/json
+
+{
+  "dni": 555444,
+  "nombre": "JUAN CALIMERO",
+  "activo": true,
+  "ubicacion": {
+    "direccion": "ssssdsdsdsd",
+    "email":"epepe@gmail.com",
+    "telefono": [{"casa": "223322"},{"cel":"+052-3287382"}]
+  }
+}

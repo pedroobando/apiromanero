@@ -1,0 +1,37 @@
+
+
+@hostname = http://localhost
+@port = 3003
+@baseUrl = {{hostname}}:{{port}}/api/users
+
+GET {{baseUrl}}/createindex HTTP/1.1
+
+###
+GET {{baseUrl}}/
+
+###
+POST {{baseUrl}}/
+Content-Type: application/json
+
+{
+  "login": "Samuel",
+  "pass": "hoja de papel",
+  "email": "ObandoPedro@GMAIL.com",
+  "dni": "3232323",
+  "name":"Samuel Moncada"
+}
+
+###
+DELETE {{baseUrl}}/5ed10c90a01e7f54a604107f
+
+###
+PUT {{baseUrl}}/5ed10c90a01e7f54a604107f
+Content-Type: application/json
+
+{
+  "login": "juan",
+  "pass": "12234",
+  "email": "obando@gmail.com",
+  "dni": "3232323",
+  "name":"pedro obando"
+}
