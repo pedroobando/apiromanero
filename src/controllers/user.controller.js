@@ -123,7 +123,8 @@ function dataEntity(valueEnt) {
     login: valueEnt.login !== undefined ? fieldkeyFilter(valueEnt.login): null,
     pass: valueEnt.pass !== undefined ? valueEnt.pass: null,
     email: valueEnt.email !== undefined ? fieldkeyFilter(valueEnt.email): null,
-    name: valueEnt.name !== undefined ? valueEnt.name: null,
+    nombre: valueEnt.nombre !== undefined ? valueEnt.nombre: null,
+    roll: valueEnt.roll !== undefined ? valueEnt.roll: null,
     lastlogin: valueEnt.lastlogin != undefined ? valueEnt.lastlogin: Date.now()
   }
 }
@@ -134,7 +135,8 @@ function retdataEntity(valueEnt) {
     login: valueEnt.login !== undefined ? valueEnt.login: null,
     pass: valueEnt.pass !== undefined ? valueEnt.pass: null,
     email: valueEnt.email !== undefined ? valueEnt.email: null,
-    name: valueEnt.name !== undefined ? valueEnt.name: null,
+    nombre: valueEnt.nombre !== undefined ? valueEnt.nombre: null,
+    roll: valueEnt.roll !== undefined ? valueEnt.roll: null,
     lastlogin: _mdateObject(valueEnt.lastlogin)
   }
 }

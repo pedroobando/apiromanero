@@ -14,24 +14,24 @@ POST {{baseUrl}}/
 Content-Type: application/json
 
 {
-  "login": "Samuel",
-  "pass": "hoja de papel",
-  "email": "ObandoPedro@GMAIL.com",
-  "dni": "3232323",
-  "name":"Samuel Moncada"
+  "login": "antonio",
+  "pass": "12234",
+  "email": "antoniomartinez@gmail.com",
+  "nombre": "Antonio Martinez",
+  "roll": "Administrador"
 }
 
 ###
-DELETE {{baseUrl}}/5ed10c90a01e7f54a604107f
+DELETE {{baseUrl}}/5ed12ff348ef18720892e83e
 
 ###
-PUT {{baseUrl}}/5ed10c90a01e7f54a604107f
+PUT {{baseUrl}}/5ed12ff348ef18720892e83e
 Content-Type: application/json
 
 {
-  "login": "juan",
-  "pass": "12234",
-  "email": "obando@gmail.com",
-  "dni": "3232323",
-  "name":"pedro obando"
+  "login": "samuel",
+  "pass": "X123",
+  "email": "sami@yahoo.com",
+  "nombre": "Samuel moncada",
+  "roll": "usuario"
 }

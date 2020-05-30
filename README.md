@@ -33,22 +33,40 @@ $ npm start
   Contiene la configuracion del contenedor docker y mongo,
   instala de una ves la base de datos y la aplicacion mongo-express,
   permitiendo administrar de forma grafica el servidor de base de datos.
+```
 
-# Objeto Json
+## rutas
+
+```bash
+  Usuarios
+  http:/...:xxxx/api/users
+```
+
+```bash
+  Conductores
+  http:/...:xxxx/api/conductores
+```
+
+
+
+## Objetos Json 
+
+### Usuario 
+```bash
   {
-    "dni": 10292569,
-    "name": "Pedro Obando",
-    "enabled": true,
-    "usuario": false,
-    "cliente": false,
-    "proveedor": false,
-    "conductor": false,
-    "locations": {
-      "phones": [],
-      "address": "",
-      "email": ""
+    "_id": "5ed2dd7a4d24b417bee90cc0",
+    "login": "antonio",
+    "pass": "12234",
+    "email": "antoniomartinez@gmail.com",
+    "nombre": "Antonio Martinez",
+    "roll": "Administrador",
+    "lastlogin": {
+      "date": "Sat May 30 2020",
+      "mdate": "Sab, 30 May, 2020",
+      "time": "06:26:02 PM",
+      "stamps": 1590877562568
     }
-  }
+  },
 ```
 
 
