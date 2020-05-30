@@ -5,6 +5,8 @@ import { ObjectID } from 'mongodb';
 import assert from 'assert';
 
 const collectionName = 'conductor';
+const fieldkeyName = {'dni': 1};
+const fieldkeyFilter = (fieldkey) => { return fieldkey.toString().toUpperCase().replace(/ /g, ""); }
 
 // sequelize crud
 export async function getEntityAll(req) {
@@ -34,16 +36,17 @@ export async function getEntityAll(req) {
   return retAccion;
 }
 
-export async function getEntityOne(req) {
+export async function getEntityOne(req, _field) {
   let retAccion = {status:200, data:{}}
   const { id } = req.params;
-  try {    
+  try {
+    const findCondition = {[_field]: (_field!='_id'? id: ObjectID(id))};
     const db = await connect();
-    const result = await db.collection(collectionName).findOne({_id: ObjectID(id)})
+    const result = await db.collection(collectionName).findOne(findCondition)
     if (result !== null) {
       retAccion.data = retdataEntity(result);
     } else {
-      retAccion = {status:404, data:{msg: `id ${id} not found`}}
+      retAccion = {status:404, data:{msg: `${_field} ${id} not found`}}
     }
   } catch (error) {
     retAccion = {status:404, data:_merrorMessage(error)}
@@ -55,9 +58,7 @@ export async function createEntity(req) {
   let retAccion = {status:200, data:[]}
   try {    
     let dataObject = dataEntity(req.body);
-    // dataObject.activo = true;
     const db = await connect();
-    console.log(dataObject);
     const result = await db.collection(collectionName).insertOne(dataObject);
     assert.equal(1, result.insertedCount);
     retAccion = {status: 201, insertedCount: result.insertedCount, data: result.ops[0]}
@@ -102,8 +103,8 @@ export async function createIndex() {
     const db = await connect();
     let result = await db.collection(collectionName).dropIndexes();
     if (result) {
-      result = await db.collection(collectionName).ensureIndex({'dni':1},{'unique':false});
-      await db.collection(collectionName).ensureIndex({'nombre':1});
+      result = await db.collection(collectionName).ensureIndex(fieldkeyName,{'unique':true});
+      await db.collection(collectionName).ensureIndex({'nombre':1},{'unique':false});
     }    
     retAccion = {status: 200, indexCount: result, data: {result: 'Ok'}}
   } catch (error) {
@@ -114,7 +115,7 @@ export async function createIndex() {
 
 function dataEntity(valueEnt) {
   return {
-    dni: valueEnt.dni !== undefined ? valueEnt.dni: null,
+    dni: valueEnt.dni !== undefined ? fieldkeyFilter(valueEnt.dni): null,
     nombre: valueEnt.nombre !== undefined ? valueEnt.nombre: null,
     activo: valueEnt.activo !== undefined ? valueEnt.activo: true,
     ubicacion: {

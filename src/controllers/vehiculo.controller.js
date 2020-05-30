@@ -5,6 +5,8 @@ import { ObjectID } from 'mongodb';
 import assert from 'assert';
 
 const collectionName = 'vehiculo';
+const fieldkeyName = {'placa': 1};
+const fieldkeyFilter = (fieldkey) => { return fieldkey.toString().toUpperCase().replace(/ /g, ""); }
 
 // sequelize crud
 export async function getEntityAll(req) {
@@ -29,21 +31,22 @@ export async function getEntityAll(req) {
     retAccion.data = {record: result.map(xfEntity), countAll}
   } catch (error) {
     retAccion.status = 400;
-    console.log(error.stack);
+    // console.log(error.stack);
   }
   return retAccion;
 }
 
-export async function getEntityOne(req) {
+export async function getEntityOne(req, _field) {
   let retAccion = {status:200, data:{}}
   const { id } = req.params;
-  try {    
+  try {
+    const findCondition = {[_field]: (_field!='_id'? id: ObjectID(id))};
     const db = await connect();
-    const result = await db.collection(collectionName).findOne({_id: ObjectID(id)})
+    const result = await db.collection(collectionName).findOne(findCondition)
     if (result !== null) {
       retAccion.data = retdataEntity(result);
     } else {
-      retAccion = {status:404, data:{msg: `id ${id} not found`}}
+      retAccion = {status:404, data:{msg: `${_field} ${id} not found`}}
     }
   } catch (error) {
     retAccion = {status:404, data:_merrorMessage(error)}
@@ -55,7 +58,6 @@ export async function createEntity(req) {
   let retAccion = {status:200, data:[]}
   try {    
     let dataObject = dataEntity(req.body);
-    dataObject.enabled = true;
     const db = await connect();
     const result = await db.collection(collectionName).insertOne(dataObject);
     assert.equal(1, result.insertedCount);
@@ -101,8 +103,7 @@ export async function createIndex() {
     const db = await connect();
     let result = await db.collection(collectionName).dropIndexes();
     if (result) {
-      result = await db.collection(collectionName).ensureIndex({'placa':1},{'unique':true});
-      // await db.collection(collectionName).ensureIndex({'placa':1});
+      result = await db.collection(collectionName).ensureIndex(fieldkeyName,{'unique':true});
     }    
     retAccion = {status: 200, indexCount: result, data: {result: 'Ok'}}
   } catch (error) {
@@ -112,14 +113,18 @@ export async function createIndex() {
 }
 
 function dataEntity(valueEnt) {
-  // console.log(`${valueEnt.dni} 222`);
   return {
-    placa: valueEnt.placa !== undefined ? valueEnt.placa: null,
+    placa: valueEnt.placa !== undefined ? fieldkeyFilter(valueEnt.placa): null,
     tara: valueEnt.tara !== undefined ? valueEnt.tara: 0,
-    conductor: valueEnt.conductod !== undefined ? valueEnt.conductor: 0,
+    conductor:  {
+      _id: valueEnt.conductor._id !== undefined ? valueEnt.conductor.id: 0,
+      dni: valueEnt.conductor.dni !== undefined ? valueEnt.conductor.dni: null,
+      nombre: valueEnt.conductor.nombre !== undefined ? valueEnt.conductor.nombre: null
+    },
     marca: valueEnt.marca !== undefined ? valueEnt.marca: '',
     modelo: valueEnt.modelo !== undefined ? valueEnt.modelo: '', 
     activo: valueEnt.activo !== undefined ? valueEnt.activo: true,
+    userId: valueEnt.userId !== undefined ? valueEnt.userId: null,
     timestamps: Date.now()
   }
 }
@@ -129,10 +134,19 @@ function retdataEntity(valueEnt) {
     _id: valueEnt._id !== undefined ? valueEnt._id: null,
     placa: valueEnt.placa !== undefined ? valueEnt.placa: null,
     tara: valueEnt.tara !== undefined ? valueEnt.tara: 0,
-    conductor: valueEnt.conductod !== undefined ? valueEnt.conductor: 0,
+    conductor: valueEnt.conductor !== undefined ? {
+      _id: valueEnt.conductor._id !== undefined ? valueEnt.conductor._id: 0,
+      dni: valueEnt.conductor.dni !== undefined ? valueEnt.conductor.dni: null,
+      nombre: valueEnt.conductor.nombre !== undefined ? valueEnt.conductor.nombre: null
+    } : {
+      _id: 0,
+      dni: null,
+      nombre: null
+    },
     marca: valueEnt.marca !== undefined ? valueEnt.marca: '',
     modelo: valueEnt.modelo !== undefined ? valueEnt.modelo: '', 
     activo: valueEnt.activo !== undefined ? valueEnt.activo: true,
+    userId: valueEnt.userId !== undefined ? valueEnt.userId: null,
     timestamps: _mdateObject(valueEnt.timestamps)
   }
 }

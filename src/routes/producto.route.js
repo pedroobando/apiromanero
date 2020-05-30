@@ -23,7 +23,17 @@ theRouter.get('/createindex',  async (req, res) => {
 theRouter.get('/:id', async (req, res) => {
   try {
     
-    const result = await getEntityOne(req);
+    const result = await getEntityOne(req, '_id');
+    res.status(result.status).json(result.data);
+  } catch (error) {
+    console.log(error);
+  }  
+});
+
+theRouter.get('/codigo/:id', async (req, res) => {
+  try {
+    
+    const result = await getEntityOne(req, 'codigo');
     res.status(result.status).json(result.data);
   } catch (error) {
     console.log(error);

@@ -6,6 +6,8 @@ import assert from 'assert';
 
 
 const collectionName = 'users';
+const fieldkeyName = {'login':1};
+const fieldkeyFilter = (fieldkey) => { return fieldkey.toString().toLowerCase().replace(/ /g, ""); }
 
 // sequelize crud
 export async function getEntityAll(req) {
@@ -30,7 +32,7 @@ export async function getEntityAll(req) {
     retAccion.data = {record: result.map(xformEntity),countAll}
   } catch (error) {
     retAccion.status = 400;
-    console.log(error.stack);
+    // console.log(error.stack);
   }
   return retAccion;
 }
@@ -39,8 +41,9 @@ export async function getEntityOne(req, _field) {
   let retAccion = {status:200, data:{}}
   const { id } = req.params;
   try {
+    const findCondition = {[_field]: (_field!='_id'? id: ObjectID(id))};
     const db = await connect();
-    const result = await db.collection(collectionName).findOne({[_field]: (_field!='_id'? id: ObjectID(id))})
+    const result = await db.collection(collectionName).findOne(findCondition);
     if (result !== null) {
       retAccion.data = retdataEntity(result, result);
     } else {
@@ -51,26 +54,6 @@ export async function getEntityOne(req, _field) {
   }
   return retAccion;
 }
-
-// export async function getEntityByLogin(req) {
-//   let retAccion = {status:200, data:{}}
-//   try {
-//     const { login } = req.params;
-//     const db = await connect();
-//     const result = await db.collection(collectionName).findOne({login})
-//     if (result !== null) {
-//       const people = await db.collection(collectionPeople).findOne({_id: ObjectID(result._idpeople)})
-//       retAccion.data = retdataEntity(result, people);
-//     } else {
-//       retAccion = {status:404, data:{msg: `login ${login} not found`}}
-//     }
-//   } catch (error) {
-//     retAccion = {status:404, data:validateError(error)}
-//     // retAccion = {status:400, data:{error}}
-//     // console.error(error);
-//   }
-//   return retAccion;
-// }
 
 export async function createEntity(req) {
   // import CryptoJS from 'crypto-js';
@@ -126,7 +109,7 @@ export async function createIndex() {
     const db = await connect();
     let result = await db.collection(collectionName).dropIndexes();
     if (result) {
-      result = await db.collection(collectionName).ensureIndex({'login':1},{'unique':true});
+      result = await db.collection(collectionName).ensureIndex(fieldkeyName,{'unique':true});
     }
     retAccion = {status: 200, indexCount: result, data: {result: 'Ok'}}
   } catch (error) {
@@ -137,9 +120,9 @@ export async function createIndex() {
 
 function dataEntity(valueEnt) {
   return {
-    login: valueEnt.login !== undefined ? valueEnt.login.toLowerCase(): null,
+    login: valueEnt.login !== undefined ? fieldkeyFilter(valueEnt.login): null,
     pass: valueEnt.pass !== undefined ? valueEnt.pass: null,
-    email: valueEnt.email !== undefined ? valueEnt.email.toLowerCase(): null,
+    email: valueEnt.email !== undefined ? fieldkeyFilter(valueEnt.email): null,
     name: valueEnt.name !== undefined ? valueEnt.name: null,
     lastlogin: valueEnt.lastlogin != undefined ? valueEnt.lastlogin: Date.now()
   }

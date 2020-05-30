@@ -6,14 +6,18 @@ GET {{baseUrl}}/createindex HTTP/1.1
 
 ###
 GET {{baseUrl}}/
+###
+GET {{baseUrl}}/5ed22abc3ed9101e9e8a3790
+###
+GET {{baseUrl}}/dni/V10292569
 
 ###
 POST {{baseUrl}}/
 Content-Type: application/json
 
 {
-  "dni": 555444,
-  "nombre": "sdsdsdsd",
+  "dni": "ext548 56 r ",
+  "nombre": "Extrangero",
   "activo": true,
   "ubicacion": {
     "direccion": "ssssdsdsdsd",
@@ -23,7 +27,7 @@ Content-Type: application/json
 }
 
 ###
-DELETE {{baseUrl}}/5ed10c90a01e7f54a604107f
+DELETE {{baseUrl}}/5ed22d69d2cc4321305c6b85
 
 ###
 PUT {{baseUrl}}/5ed10c90a01e7f54a604107f

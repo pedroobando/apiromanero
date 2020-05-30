@@ -8,34 +8,34 @@ GET {{baseUrl}}/createindex HTTP/1.1
 GET {{baseUrl}}/
 
 ###
+GET {{baseUrl}}/5ed2231db7fb061996800138
+
+###
+GET {{baseUrl}}/codigo/soya57
+
+###
 POST {{baseUrl}}/
 Content-Type: application/json
 
 {
-  "codigo": 322321,
-  "nombre": "aceite",
-  "activo": true,
-  "ubicacion": {
-    "direccion": "ssssdsdsdsd",
-    "email":"epepe@gmail.com",
-    "telefono": [{"casa": "223322"},{"cel":"+052-3287382"}]
-  }
+  "codigo": "SOYA57",
+  "nombre": "SALSA DE SOYA 57",
+  "presentacion": "UND",
+  "peso": 3,
+  "activo": true
 }
 
 ###
-DELETE {{baseUrl}}/5ed10c90a01e7f54a604107f
+DELETE {{baseUrl}}/5ed16caff50b267f5406cf1a
 
 ###
-PUT {{baseUrl}}/5ed10c90a01e7f54a604107f
+PUT {{baseUrl}}/5ed2231db7fb061996800138
 Content-Type: application/json
 
 {
-  "dni": 555444,
-  "nombre": "JUAN CALIMERO",
-  "activo": true,
-  "ubicacion": {
-    "direccion": "ssssdsdsdsd",
-    "email":"epepe@gmail.com",
-    "telefono": [{"casa": "223322"},{"cel":"+052-3287382"}]
-  }
+  "codigo": "c2cg3223x",
+  "nombre": "Mayonesa Castillo",
+  "presentacion": "LTS",
+  "peso": 500,
+  "activo": true
 }

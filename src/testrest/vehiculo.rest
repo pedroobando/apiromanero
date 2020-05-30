@@ -1,0 +1,47 @@
+@hostname = http://localhost
+@port = 3003
+@baseUrl = {{hostname}}:{{port}}/api/vehiculos
+
+GET {{baseUrl}}/createindex HTTP/1.1
+
+###
+GET {{baseUrl}}/
+###
+GET {{baseUrl}}/5ed236b5012e8a23d2a3aff0
+###
+GET {{baseUrl}}/placa/BAH12P
+
+###
+POST {{baseUrl}}/5ed236b5012e8a23d2a3aff0
+Content-Type: application/json
+
+{
+  "placa": "RPG81487",
+  "tara": 433.32,
+  "conductor": {
+    "_id": "323232sdsd",
+    "dni": "DSSSSSSSSSSSSSD",
+    "nombre": "JUAN MARTINEZ"
+  },
+  "marca": "YOYOTA",
+  "modelo": "NPR"
+}
+
+###
+DELETE {{baseUrl}}/5ed22d69d2cc4321305c6b85
+
+###
+PUT {{baseUrl}}/5ed236b5012e8a23d2a3aff0
+Content-Type: application/json
+
+{
+  "placa": "fe2132",
+  "tara": 547,
+  "conductor": {
+    "_id": "2323323232sdsd",
+    "dni": "V10292569",
+    "nombre": "PEDRO MARTINEZ"
+  },
+  "marca": "YOYOTA",
+  "modelo": "yutom"
+}

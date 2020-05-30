@@ -6,6 +6,7 @@ import assert from 'assert';
 
 const collectionName = 'producto';
 const fieldkeyName = {'codigo': 1};
+const fieldkeyFilter = (fieldkey) => { return fieldkey.toString().toUpperCase().replace(/ /g, ""); }
 
 // sequelize crud
 export async function getEntityAll(req) {
@@ -18,8 +19,8 @@ export async function getEntityAll(req) {
   onlyEnabled = onlyEnabled !== undefined ? true: false;
   const nskip = (page-1) * pageSize;
   try {
-    const norderType = orderType == 'ASC' ? 1: -1;
     const xfEntity = (xItem) => {return retdataEntity(xItem)};
+    const norderType = orderType == 'ASC' ? 1: -1;
     const db = await connect();
     const countAll = await db.collection(collectionName).countDocuments(onlyEnabled ? { 'enabled': true }: {})
     const result = await db.collection(collectionName).find(onlyEnabled ? { 'enabled': true }: {})
@@ -30,21 +31,22 @@ export async function getEntityAll(req) {
     retAccion.data = {record: result.map(xfEntity), countAll}
   } catch (error) {
     retAccion.status = 400;
-    console.log(error.stack);
+    // console.log(error.stack);
   }
   return retAccion;
 }
 
-export async function getEntityOne(req) {
+export async function getEntityOne(req, _field) {
   let retAccion = {status:200, data:{}}
   const { id } = req.params;
-  try {    
+  try {
+    const findCondition = {[_field]: (_field!='_id'? id: ObjectID(id))};
     const db = await connect();
-    const result = await db.collection(collectionName).findOne({_id: ObjectID(id)})
+    const result = await db.collection(collectionName).findOne(findCondition)
     if (result !== null) {
       retAccion.data = retdataEntity(result);
     } else {
-      retAccion = {status:404, data:{msg: `id ${id} not found`}}
+      retAccion = {status:404, data:{msg: `${_field} ${id} not found`}}
     }
   } catch (error) {
     retAccion = {status:404, data:_merrorMessage(error)}
@@ -113,12 +115,11 @@ export async function createIndex() {
 }
 
 function dataEntity(valueEnt) {
-  // console.log(`${valueEnt.dni} 222`);
   return {
-    codigo: valueEnt.codigo !== undefined ? valueEnt.codigo: null,
+    codigo: valueEnt.codigo !== undefined ? fieldkeyFilter(valueEnt.codigo): null,
     nombre: valueEnt.nombre !== undefined ? valueEnt.nombre: null,
     presentacion: valueEnt.presentacion !== undefined ? valueEnt.presentacion: null,
-    pesoUnidad: valueEnt.pesoUnidad !== undefined ? valueEnt.pesoUnidad:0,
+    peso: valueEnt.peso !== undefined ? valueEnt.peso:0,
     activo: valueEnt.activo !== undefined ? valueEnt.activo: true,
     timestamps: Date.now()
   }
@@ -130,7 +131,7 @@ function retdataEntity(valueEnt) {
     codigo: valueEnt.codigo !== undefined ? valueEnt.codigo: null,
     nombre: valueEnt.nombre !== undefined ? valueEnt.nombre: null,
     presentacion: valueEnt.presentacion !== undefined ? valueEnt.presentacion: null,
-    pesoUnidad: valueEnt.pesoUnidad !== undefined ? valueEnt.pesoUnidad:0,
+    peso: valueEnt.peso !== undefined ? valueEnt.peso:0,
     activo: valueEnt.activo !== undefined ? valueEnt.activo: true,
     timestamps: _mdateObject(valueEnt.timestamps)
   }
