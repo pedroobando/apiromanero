@@ -1,25 +1,7 @@
-# apipeople
+# apiromanero
 
 ## Description
-  apirest para guardar solo datos de personas, conexion de base de datos mongo.
-
-
-
-## Running the app
-
-```bash
-# instalacion
-$ npm install
-
-# development
-$ npm run dev
-
-# production mode
-$ npm run build
-
-# start production mode
-$ npm start
-```
+  apirest datos de la aplicacion romanero, conexion de base de datos mongo.
 
 ## La base de datos
 
