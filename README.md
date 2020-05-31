@@ -98,10 +98,10 @@ $ kill -9 {PID}
 
 ```bash
 # Crear la imagen
-  $ docker build -t apilogistimg .
+  $ docker build -t apiromaneroimg .
 
 # Crear el contenedor
-  $ docker run --name apilogist -it -d -p 3001:3001 apilogistimg
+  $ docker run --name apiromanero -it -d -p 3001:3001 apiromaneroimg
 
 # Entrar a un contenedor
   $ docker exec -i -t contenedorId /bin/bash #

@@ -1,6 +1,6 @@
 
 # FROM node:12.14-buster
-FROM node:12-alpine
+FROM node:lts-buster
 
 ENV TZ=America/Caracas
 
@@ -14,6 +14,6 @@ RUN npm install
 
 COPY . .
 
-EXPOSE 3001
+EXPOSE 3003
 
 CMD [ "node", "dist/index.js" ] 
