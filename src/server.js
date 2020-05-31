@@ -10,7 +10,7 @@ const serve = express();
 dotenv.config();
 
 // initialization consts
-export const thePort =  process.env.PORT || 8080;
+export const thePort =  process.env.PORT || 3000;
 export const theHost = process.env.HOST || '0.0.0.0';
 
 // middlewares

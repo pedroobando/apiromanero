@@ -1,6 +1,7 @@
-
-# FROM node:12.14-buster
-FROM node:lts-buster
+FROM node:12-alpine
+# FROM node:12-buster-slim
+# FROM node:12-buster
+# FROM node:14-alpine
 
 ENV TZ=America/Caracas
 
@@ -10,10 +11,13 @@ WORKDIR /app
 
 COPY package*.json ./
 
-RUN npm install
+RUN yarn install
 
 COPY . .
 
+RUN yarn build
+
+# puerto donde se ejecuta la aplicacion
 EXPOSE 3003
 
-CMD [ "node", "dist/index.js" ] 
+CMD [ "yarn", "start" ]

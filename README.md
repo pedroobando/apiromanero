@@ -98,10 +98,16 @@ $ kill -9 {PID}
 
 ```bash
 # Crear la imagen
-  $ docker build -t apiromaneroimg .
+  $ docker build -t apiromaimg .
 
 # Crear el contenedor
-  $ docker run --name apiromanero -it -d -p 3001:3001 apiromaneroimg
+# puerto_expuesto: puerto_interno
+# -it: modo interactivo
+# -d: modo deployment
+  $ docker run --name apiromanero -it -d -p 3001:3003 apiromaimg
+
+# Guida de node Docker
+  https://nodejs.org/en/docs/guides/nodejs-docker-webapp/
 
 # Entrar a un contenedor
   $ docker exec -i -t contenedorId /bin/bash #
