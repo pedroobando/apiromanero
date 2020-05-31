@@ -104,7 +104,7 @@ $ kill -9 {PID}
 # puerto_expuesto: puerto_interno
 # -it: modo interactivo
 # -d: modo deployment
-  $ docker run --name apiromanero -it -d -p 3001:3003 apiromaimg
+  $ docker run --name apiromanero -it -d --restart always -p 3001:3003 apiromaimg
 
 # Guida de node Docker
   https://nodejs.org/en/docs/guides/nodejs-docker-webapp/
