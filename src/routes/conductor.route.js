@@ -51,7 +51,7 @@ theRouter.post('/', async (req, res) => {
 theRouter.put('/:id', async (req, res) => {
   try {
     const result = await updateEntity(req);
-    res.status(result.status).json(result);
+    res.status(result.status).json(result.data);
   } catch (error) {
     console.log(error);
   }  

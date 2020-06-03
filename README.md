@@ -29,8 +29,6 @@
   http:/...:xxxx/api/conductores
 ```
 
-
-
 ## Objetos Json 
 
 ### Usuario 

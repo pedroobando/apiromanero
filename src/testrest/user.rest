@@ -25,11 +25,11 @@ Content-Type: application/json
 DELETE {{baseUrl}}/5ed12ff348ef18720892e83e
 
 ###
-PUT {{baseUrl}}/5ed12ff348ef18720892e83e
+PUT {{baseUrl}}/5ed769c4d829ab001bab0582
 Content-Type: application/json
 
 {
-  "login": "samuel",
+  "login": "carlosmanuel",
   "pass": "X123",
   "email": "sami@yahoo.com",
   "nombre": "Samuel moncada",

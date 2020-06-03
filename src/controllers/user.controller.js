@@ -84,7 +84,7 @@ export async function updateEntity(req) {
     assert.equal(1, result.modifiedCount);
     retAccion = {status: 200, modifiedCount: result.modifiedCount}
   } catch (error) {
-    retAccion = {status: 400, modifiedCount: 0, data:_merrorMessage(error) };
+    retAccion = {status: 400, modifiedCount: 0, data:_merrorMessage(error)};
   }
   return retAccion;
 }
