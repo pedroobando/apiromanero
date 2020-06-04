@@ -15,6 +15,8 @@ RUN yarn install
 
 COPY . .
 
+COPY .env ./
+
 RUN yarn build
 
 # puerto donde se ejecuta la aplicacion

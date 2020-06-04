@@ -125,6 +125,7 @@ function dataEntity(valueEnt) {
     email: valueEnt.email !== undefined ? fieldkeyFilter(valueEnt.email): null,
     nombre: valueEnt.nombre !== undefined ? valueEnt.nombre: null,
     roll: valueEnt.roll !== undefined ? valueEnt.roll: null,
+    imagenid: valueEnt.imagenid !== undefined ? valueEnt.imagenid: null,
     lastlogin: valueEnt.lastlogin != undefined ? valueEnt.lastlogin: Date.now()
   }
 }
@@ -137,6 +138,7 @@ function retdataEntity(valueEnt) {
     email: valueEnt.email !== undefined ? valueEnt.email: null,
     nombre: valueEnt.nombre !== undefined ? valueEnt.nombre: null,
     roll: valueEnt.roll !== undefined ? valueEnt.roll: null,
+    imagenid: valueEnt.imagenid !== undefined ? valueEnt.imagenid: null,
     lastlogin: _mdateObject(valueEnt.lastlogin)
   }
 }
