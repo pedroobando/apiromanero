@@ -119,11 +119,10 @@ function dataEntity(valueEnt) {
     nombre: valueEnt.nombre !== undefined ? valueEnt.nombre: null,
     activo: valueEnt.activo !== undefined ? valueEnt.activo: true,
     imagenid: valueEnt.imagenid !== undefined ? valueEnt.imagenid: null,
-    ubicacion: {
-      telefono: valueEnt.ubicacion.telefono !== undefined ? valueEnt.ubicacion.telefono: [],
-      direccion: valueEnt.ubicacion.direccion !== undefined ? valueEnt.ubicacion.direccion: '',
-      email: valueEnt.ubicacion.email !== undefined ? valueEnt.ubicacion.email: '',
-    },
+    telefonohogar: valueEnt.telefonohogar !== undefined ? valueEnt.telefonohogar: null,
+    telefonocelular: valueEnt.telefonocelular !== undefined ? valueEnt.telefonocelular: null,
+    direccion: valueEnt.direccion !== undefined ? valueEnt.direccion: null,
+    email: valueEnt.email !== undefined ? valueEnt.email: null,
     timestamps: Date.now()
   }
 }
@@ -135,15 +134,10 @@ function retdataEntity(valueEnt) {
     nombre: valueEnt.nombre !== undefined ? valueEnt.nombre: null,
     activo: valueEnt.activo !== undefined ? valueEnt.activo: true,
     imagenid: valueEnt.imagenid !== undefined ? valueEnt.imagenid: null,
-    ubicacion: valueEnt.ubicacion !== undefined ? {
-      telefono: valueEnt.ubicacion.telefono !== undefined ? valueEnt.ubicacion.telefono: [],
-      direccion: valueEnt.ubicacion.direccion !== undefined ? valueEnt.ubicacion.direccion: '',
-      email: valueEnt.ubicacion.email !== undefined ? valueEnt.ubicacion.email: ''
-    } : {
-      telefono: [],
-      direccion: '',
-      email: ''
-    },    
+    telefonohogar: valueEnt.telefonohogar !== undefined ? valueEnt.telefonohogar: null,
+    telefonocelular: valueEnt.telefonocelular !== undefined ? valueEnt.telefonocelular: null,
+    direccion: valueEnt.direccion !== undefined ? valueEnt.direccion: null,
+    email: valueEnt.email !== undefined ? valueEnt.email: null,
     timestamps: _mdateObject(valueEnt.timestamps)
   }
 }
