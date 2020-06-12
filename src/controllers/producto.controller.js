@@ -58,7 +58,6 @@ export async function createEntity(req) {
   let retAccion = {status:200, data:[]}
   try {    
     let dataObject = dataEntity(req.body);
-    dataObject.enabled = true;
     const db = await connect();
     const result = await db.collection(collectionName).insertOne(dataObject);
     assert.equal(1, result.insertedCount);

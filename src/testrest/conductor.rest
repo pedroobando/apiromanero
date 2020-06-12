@@ -7,7 +7,7 @@ GET {{baseUrl}}/createindex HTTP/1.1
 ###
 GET {{baseUrl}}/
 ###
-GET {{baseUrl}}/5ed22abc3ed9101e9e8a3790
+GET {{baseUrl}}/5ed230ca012e8a23d2a3afef
 ###
 GET {{baseUrl}}/dni/V10292569
 
@@ -18,6 +18,7 @@ Content-Type: application/json
 {
   "dni": "ext548 56 r ",
   "nombre": "Extrangero",
+  "imagenid": "3232323",
   "activo": true,
   "ubicacion": {
     "direccion": "ssssdsdsdsd",
@@ -30,12 +31,13 @@ Content-Type: application/json
 DELETE {{baseUrl}}/5ed22d69d2cc4321305c6b85
 
 ###
-PUT {{baseUrl}}/5ed10c90a01e7f54a604107f
+PUT {{baseUrl}}/5ed230ca012e8a23d2a3afef
 Content-Type: application/json
 
 {
-  "dni": 555444,
-  "nombre": "JUAN CALIMERO",
+  "dni": 10555444,
+  "nombre": "JUAN CURRUTACO CALIMERO",
+  "imagenid": "3232323",
   "activo": true,
   "ubicacion": {
     "direccion": "ssssdsdsdsd",

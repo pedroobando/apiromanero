@@ -4,8 +4,8 @@ import { connect } from '../database/mongoCnn';
 import { ObjectID } from 'mongodb';
 import assert from 'assert';
 
-const collectionName = 'conductor';
-const fieldkeyName = {'dni': 1};
+const collectionName = 'documento';
+const fieldkeyName = {'codigo': 1};
 const fieldkeyFilter = (fieldkey) => { return fieldkey.toString().toUpperCase().replace(/ /g, ""); }
 
 // sequelize crud
@@ -19,8 +19,8 @@ export async function getEntityAll(req) {
   onlyEnabled = onlyEnabled !== undefined ? true: false;
   const nskip = (page-1) * pageSize;
   try {
-    const norderType = orderType == 'ASC' ? 1: -1;
     const xfEntity = (xItem) => {return retdataEntity(xItem)};
+    const norderType = orderType == 'ASC' ? 1: -1;
     const db = await connect();
     const countAll = await db.collection(collectionName).countDocuments(onlyEnabled ? { 'enabled': true }: {})
     const result = await db.collection(collectionName).find(onlyEnabled ? { 'enabled': true }: {})
@@ -31,7 +31,7 @@ export async function getEntityAll(req) {
     retAccion.data = {record: result.map(xfEntity), countAll}
   } catch (error) {
     retAccion.status = 400;
-    console.log(error.stack);
+    // console.log(error.stack);
   }
   return retAccion;
 }
@@ -103,8 +103,8 @@ export async function createIndex() {
     const db = await connect();
     let result = await db.collection(collectionName).dropIndexes();
     if (result) {
-      result = await db.collection(collectionName).ensureIndex(fieldkeyName,{'unique':true});
-      await db.collection(collectionName).ensureIndex({'nombre':1},{'unique':false});
+      result = await db.collection(collectionName).ensureIndex(fieldkeyName ,{'unique':true});
+      await db.collection(collectionName).ensureIndex({'nombre':1});
     }    
     retAccion = {status: 200, indexCount: result, data: {result: 'Ok'}}
   } catch (error) {
@@ -115,15 +115,9 @@ export async function createIndex() {
 
 function dataEntity(valueEnt) {
   return {
-    dni: valueEnt.dni !== undefined ? fieldkeyFilter(valueEnt.dni): null,
+    codigo: valueEnt.codigo !== undefined ? fieldkeyFilter(valueEnt.codigo): null,
     nombre: valueEnt.nombre !== undefined ? valueEnt.nombre: null,
     activo: valueEnt.activo !== undefined ? valueEnt.activo: true,
-    imagenid: valueEnt.imagenid !== undefined ? valueEnt.imagenid: null,
-    ubicacion: {
-      telefono: valueEnt.ubicacion.telefono !== undefined ? valueEnt.ubicacion.telefono: [],
-      direccion: valueEnt.ubicacion.direccion !== undefined ? valueEnt.ubicacion.direccion: '',
-      email: valueEnt.ubicacion.email !== undefined ? valueEnt.ubicacion.email: '',
-    },
     timestamps: Date.now()
   }
 }
@@ -131,19 +125,9 @@ function dataEntity(valueEnt) {
 function retdataEntity(valueEnt) {
   return {
     _id: valueEnt._id !== undefined ? valueEnt._id: null,
-    dni: valueEnt.dni !== undefined ? valueEnt.dni: null,
+    codigo: valueEnt.codigo !== undefined ? valueEnt.codigo: null,
     nombre: valueEnt.nombre !== undefined ? valueEnt.nombre: null,
     activo: valueEnt.activo !== undefined ? valueEnt.activo: true,
-    imagenid: valueEnt.imagenid !== undefined ? valueEnt.imagenid: null,
-    ubicacion: valueEnt.ubicacion !== undefined ? {
-      telefono: valueEnt.ubicacion.telefono !== undefined ? valueEnt.ubicacion.telefono: [],
-      direccion: valueEnt.ubicacion.direccion !== undefined ? valueEnt.ubicacion.direccion: '',
-      email: valueEnt.ubicacion.email !== undefined ? valueEnt.ubicacion.email: ''
-    } : {
-      telefono: [],
-      direccion: '',
-      email: ''
-    },    
     timestamps: _mdateObject(valueEnt.timestamps)
   }
 }

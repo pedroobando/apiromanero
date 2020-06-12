@@ -1,0 +1,37 @@
+@hostname = http://localhost
+@port = 3003
+@baseUrl = {{hostname}}:{{port}}/api/documentos
+
+GET {{baseUrl}}/createindex HTTP/1.1
+
+###
+GET {{baseUrl}}/
+
+###
+GET {{baseUrl}}/5ee3a7d38bcef02e3dec7d93
+
+###
+GET {{baseUrl}}/codigo/CON3001
+
+###
+POST {{baseUrl}}/
+Content-Type: application/json
+
+{
+  "codigo": "con001",
+  "nombre": "licencia de conducir",
+  "activo": true
+}
+
+###
+DELETE {{baseUrl}}/5ed16caff50b267f5406cf1a
+
+###
+PUT {{baseUrl}}/5ee3a7d38bcef02e3dec7d93
+Content-Type: application/json
+
+{
+  "codigo": "3con001",
+  "nombre": "Cambio licencia de conducir",
+  "activo": false
+}
