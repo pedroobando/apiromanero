@@ -20,11 +20,10 @@ Content-Type: application/json
   "nombre": "Extrangero",
   "imagenid": "3232323",
   "activo": true,
-  "ubicacion": {
-    "direccion": "ssssdsdsdsd",
-    "email":"epepe@gmail.com",
-    "telefono": [{"casa": "223322"},{"cel":"+052-3287382"}]
-  }
+  "telefonohogar": "09320909093223",
+  "telefonocelular": "09320909093223",
+  "direccion": "ssssdsdsdsd",
+  "email":"epepe@gmail.com"  
 }
 
 ###
@@ -39,9 +38,8 @@ Content-Type: application/json
   "nombre": "JUAN CURRUTACO CALIMERO",
   "imagenid": "3232323",
   "activo": true,
-  "ubicacion": {
-    "direccion": "ssssdsdsdsd",
-    "email":"epepe@gmail.com",
-    "telefono": [{"casa": "223322"},{"cel":"+052-3287382"}]
-  }
+  "telefonohogar": "09320909093223",
+  "telefonocelular": "09320909093223",
+  "direccion": "ssssdsdsdsd",
+  "email":"epepe@gmail.com"
 }
