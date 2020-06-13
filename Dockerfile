@@ -22,4 +22,4 @@ RUN yarn build
 # puerto donde se ejecuta la aplicacion
 EXPOSE 3003
 
-CMD [ "yarn", "start" ]
+CMD [ "yarn", "serve" ]
