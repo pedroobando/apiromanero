@@ -5,7 +5,7 @@ import vehiculoRouter from './vehiculo.route';
 import productoRouter from './producto.route';
 import documentoRouter from './documento.route';
 
-export default function (app) {
+export default function index(app) {
   // routes apps
   // app.use('/login', loginRoutes);
   app.use('/api/vehiculos', vehiculoRouter);

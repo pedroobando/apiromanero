@@ -10,19 +10,17 @@ const serve = express();
 dotenv.config();
 
 // initialization consts
-export const thePort =  process.env.PORT || 3000;
+export const thePort = process.env.PORT || 3000;
 export const theHost = process.env.HOST || '0.0.0.0';
 
 // middlewares
 if (process.env.NODE_ENV === 'DEV') {
-  serve.use(morgan('dev'));  
+  serve.use(morgan('dev'));
 }
 
 // el metodo sync(), crea la base de datos y tablas si estas no existen
-  serve
-    .use(cors())
-    .use(json())
-  routeApps(serve);
+serve.use(cors()).use(json());
+routeApps(serve);
 // });
 
 export default serve;
