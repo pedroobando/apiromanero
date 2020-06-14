@@ -1,3 +1,4 @@
+import '@babel/polyfill';
 import express, { json } from 'express';
 import morgan from 'morgan';
 import cors from 'cors';
