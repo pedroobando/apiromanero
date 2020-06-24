@@ -125,7 +125,7 @@ export async function updateEntity(req) {
     const db = await connect();
     const result = await db.collection(collectionName).updateOne({ _id: ObjectID(id) }, { $set: dataObject });
     assert.equal(1, result.modifiedCount);
-    retAccion = { status: 200, modifiedCount: result.modifiedCount };
+    retAccion = { status: 200, modifiedCount: result.modifiedCount, data: dataObject };
   } catch (error) {
     retAccion = { status: 400, modifiedCount: 0, data: errorMessage(error) };
   }

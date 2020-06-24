@@ -1,6 +1,6 @@
 {
   "name": "apiromanero",
-  "version": "0.2.2",
+  "version": "0.2.3",
   "main": "index.js",
   "license": "MIT",
   "scripts": {
@@ -24,7 +24,7 @@
     "apirest"
   ],
   "author": "Pedro Obando",
-  "description": "",
+  "description": "apirest, aplicacion control de romana",
   "dependencies": {
     "@babel/polyfill": "^7.8.7",
     "cors": "^2.8.5",

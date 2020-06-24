@@ -25,13 +25,14 @@ Content-Type: application/json
 DELETE {{baseUrl}}/5ed12ff348ef18720892e83e
 
 ###
-PUT {{baseUrl}}/5ed769c4d829ab001bab0582
+PUT {{baseUrl}}/5ed0cf6aefe78b1197e5bf84
 Content-Type: application/json
 
 {
-  "login": "carlosmanuel",
-  "pass": "X123",
-  "email": "sami@yahoo.com",
-  "nombre": "Samuel moncada",
-  "roll": "usuario"
+"login": "abertsaa",
+"pass": "2525641",
+"email": "albertocortez@hotmail.com.ve",
+"nombre": "Aberto Cortez",
+"roll": "usuario",
+"imagenid": "5ee90832e219e0001b56b0d3"
 }
