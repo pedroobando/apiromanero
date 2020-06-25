@@ -141,6 +141,7 @@ export async function createIndex() {
     let result = await db.collection(collectionName).dropIndexes();
     if (result) {
       result = await db.collection(collectionName).ensureIndex(fieldkeyName, { unique: true });
+      await db.collection(collectionName).ensureIndex({ nombre: 1 }, { unique: false });
     }
     retAccion = { status: 200, indexCount: result, data: { result: 'Ok' } };
   } catch (error) {
